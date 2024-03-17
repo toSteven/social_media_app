@@ -14,6 +14,7 @@ import {
   Avatar, // Import Avatar component from Chakra UI
   AvatarBadge, // Import AvatarBadge component from Chakra UI
   Spacer, // Import Spacer component from Chakra UI
+  Flex,
 } from "@chakra-ui/react"; // Import Chakra UI components for UI elements
 import firebaseApp from "./FirebaseConfig"; // Import Firebase configuration
 import { getAuth, onAuthStateChanged } from "firebase/auth"; // Import Firebase authentication utilities
@@ -126,12 +127,12 @@ function Home() {
                     {userProfile.name}
                   </Text>
                 </div>
-
+                <hr />
                 <Card p="3">
                   {/* User details */}
-                  <Text>Email: {userProfile.email}</Text>
-                  <Text>Title: Software Engineer</Text>
-                  <Text>Up Votes: 0</Text>
+                  <Text fontWeight="bold">Email: {userProfile.email}</Text>
+                  <Text fontWeight="bold">Title: Software Engineer</Text>
+                  <Text fontWeight="bold">Up Votes: 0</Text>
                 </Card>
               </Card>
             </Box>

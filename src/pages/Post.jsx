@@ -1,12 +1,13 @@
-import { Card, Text, Avatar, HStack, Spacer, Button } from "@chakra-ui/react";
+import { Card, Text, Avatar, HStack, Spacer, Button } from "@chakra-ui/react"; // Import Chakra UI components for styling
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faReply, faShare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import FontAwesomeIcon for icons
+import { faHeart, faReply, faShare } from "@fortawesome/free-solid-svg-icons"; // Import solid icons from FontAwesome
 
-import Swal from "sweetalert2";
+import Swal from "sweetalert2"; // Import SweetAlert2 library for alerts
 
 function Post({ post, name, time_stamp }) {
   const click = () => {
+    // Function to handle click events for under development message
     Swal.fire({
       title: "Underdevelopment!",
       icon: "info",
@@ -33,21 +34,25 @@ function Post({ post, name, time_stamp }) {
 
         <Spacer />
 
-        {/* ttext for setting under development */}
+        {/* Text for setting under development */}
         <Text>...</Text>
       </HStack>
 
+      {/* Timestamp */}
       <Text fontSize="xs" color="gray" ml="10" mt="-5" pl="2">
         {time_stamp}
       </Text>
 
       <hr />
 
+      {/* Post content */}
       <Text className="ms-2 p-3 mb-4">{post}</Text>
 
       <hr />
 
       <HStack mt="-18px">
+        <Spacer />
+
         {/* Button for like */}
         <Button
           variant="ghost"
@@ -66,7 +71,7 @@ function Post({ post, name, time_stamp }) {
           style={{ backgroundColor: "transparent" }}
           onClick={click}
         >
-          <FontAwesomeIcon icon="fa-solid fa-message" />
+          <FontAwesomeIcon icon={faReply} />
           <Text mt="4" ml="3" fontWeight="bold">
             reply
           </Text>
@@ -78,12 +83,13 @@ function Post({ post, name, time_stamp }) {
           style={{ backgroundColor: "transparent" }}
           onClick={click}
         >
-          {" "}
           <FontAwesomeIcon icon={faShare} color="#0a0a0a" />
           <Text mt="4" ml="3" fontWeight="bold">
             share
           </Text>
         </Button>
+
+        <Spacer />
       </HStack>
     </Card>
   );

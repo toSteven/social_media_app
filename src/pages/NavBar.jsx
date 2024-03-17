@@ -1,36 +1,37 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Importing necessary hooks and components from React and React Router
 import { useState, useEffect } from "react";
 
-import firebaseApp from "./FirebaseConfig";
-import { signOut, getAuth, onAuthStateChanged } from "firebase/auth";
+import firebaseApp from "./FirebaseConfig"; // Importing Firebase configuration for authentication
+import { signOut, getAuth, onAuthStateChanged } from "firebase/auth"; // Importing Firebase authentication functions
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Importing FontAwesome icons for UI
+import { library } from "@fortawesome/fontawesome-svg-core"; // Importing FontAwesome library for icon management
+import { fas } from "@fortawesome/free-solid-svg-icons"; // Importing specific FontAwesome icon styles
 
-import Swal from "sweetalert2";
+import Swal from "sweetalert2"; // Importing SweetAlert2 for modal dialogs
 
-library.add(fas);
+library.add(fas); // Adding FontAwesome icons to the library
 
 function NavBar() {
-  const auth = getAuth(firebaseApp);
-  const navigate = useNavigate();
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const auth = getAuth(firebaseApp); // Initializing Firebase authentication
+  const navigate = useNavigate(); // Using useNavigate hook for navigation
+  const [userLoggedIn, setUserLoggedIn] = useState(false); // State for tracking user login status
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUserLoggedIn(true);
+        setUserLoggedIn(true); // Update state if user is logged in
       } else {
-        setUserLoggedIn(false);
+        setUserLoggedIn(false); // Update state if user is not logged in
       }
     });
 
-    return () => unsubscribe();
+    return () => unsubscribe(); // Cleanup function to unsubscribe from auth state changes
   }, [auth]);
 
   const logout = () => {
     Swal.fire({
+      // Show confirmation dialog using SweetAlert2
       title: "Logout Confirmation",
       text: "Are you sure you want to logout?",
       icon: "question",
@@ -42,7 +43,8 @@ function NavBar() {
     }).then((result) => {
       if (result.isConfirmed) {
         signOut(auth).then(() => {
-          navigate("/login");
+          // Sign out user on confirmation
+          navigate("/login"); // Redirect to login page after logout
         });
       }
     });
@@ -50,6 +52,7 @@ function NavBar() {
 
   const click = () => {
     Swal.fire({
+      // Placeholder function for underdevelopment message
       title: "Underdevelopment!",
       icon: "info",
       confirmButtonColor: "#3085d6",
@@ -64,14 +67,11 @@ function NavBar() {
     <>
       <nav
         className="navbar navbar-expand-lg nav-bar"
-        style={{
-          width: "100%",
-          zIndex: 1000,
-          position: "sticky",
-        }}
+        style={{ width: "100%", zIndex: 1000, position: "sticky" }}
       >
         <div className="container-fluid">
-          <h1 className="navbar-brand text-white">DevTalk</h1>
+          <h1 className="navbar-brand text-white">DevTalk</h1>{" "}
+          {/* Navbar title */}
           <button
             className="navbar-toggler"
             type="button"
@@ -81,11 +81,14 @@ function NavBar() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>{" "}
+            {/* Navbar toggle button icon */}
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto ">
+              {/* Navbar links with FontAwesome icons */}
               <li className="nav-item">
+                {/* Home */}
                 <a
                   className="nav-link active"
                   aria-current="page"
@@ -100,34 +103,25 @@ function NavBar() {
               </li>
 
               <li className="nav-item">
-                <a
-                  className="nav-link active"
-                  aria-current="page"
-                  href="#"
-                  onClick={click}
-                >
+                {/* Messages */}
+                <a className="nav-link" href="#" onClick={click}>
                   <FontAwesomeIcon
                     icon="fa-solid fa-message"
                     style={{ color: "#fafafa" }}
                   />
                 </a>
               </li>
-
               <li className="nav-item">
-                <a
-                  className="nav-link active"
-                  aria-current="page"
-                  href="#"
-                  onClick={click}
-                >
+                {/* Profile */}
+                <a className="nav-link" href="#" onClick={click}>
                   <FontAwesomeIcon
                     icon="fa-solid fa-user"
                     style={{ color: "#fafafa" }}
                   />
                 </a>
               </li>
-
               <li className="nav-item">
+                {/* About */}
                 <a className="nav-link" href="#" onClick={click}>
                   <FontAwesomeIcon
                     icon={["fas", "circle-info"]}
@@ -136,6 +130,7 @@ function NavBar() {
                 </a>
               </li>
               <li className="nav-item">
+                {/* Settings */}
                 <a className="nav-link" href="#" onClick={click}>
                   <FontAwesomeIcon
                     icon={["fas", "gear"]}
@@ -143,6 +138,7 @@ function NavBar() {
                   />
                 </a>
               </li>
+              {/* Logout button */}
               <li className="nav-item">
                 <a className="nav-link text-white" onClick={logout}>
                   <FontAwesomeIcon
@@ -159,4 +155,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default NavBar; // Exporting the NavBar component
